@@ -41,14 +41,17 @@ public class ManageScene : MonoBehaviour {
         uiContainer = new GameObject("UserInterface");
 
         //utility handle setting
-        colorPalette = gameObject.GetComponent<Palette>();
+        colorPalette = Palette.palette;
         bounds = GameObject.Find("Main Camera").GetComponent<ScreenBounds>();
 
         //generate palette
+        paletteLenght = ShortTermMemory.memory.ChangeColorsNumber(0);
         colorPalette.GeneratePalette(paletteLenght);
 
         //generate user and cpu marbles and positioning
+        numberOfMarbles = ShortTermMemory.memory.ChangeMarblesNumber(0);
         GenerateSet();
+
 	}
 
 
@@ -93,21 +96,29 @@ public class ManageScene : MonoBehaviour {
         float hDelta = (bounds.GetRightLimit() * 2f) / (4);
         float fmp = bounds.GetLeftLimit() + hDelta;
 
-        GenerateButton("Check", checkButton, fmp + hDelta, fvPos, "Check").transform.parent = buttonContainer.transform;
+        GameObject tempHandle;
+
+        tempHandle = Create.create.GenerateButton("Check", checkButton, fmp + hDelta, fvPos, "Check");
+        tempHandle.transform.parent = buttonContainer.transform;
+        tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
 
         hDelta = (bounds.GetRightLimit() * 2f) / (5);
         fmp = bounds.GetLeftLimit() + 2 * hDelta;
 
-        GenerateButton("Reset", resetButton, fmp, fvPos - vDelta, "Reset").transform.parent = buttonContainer.transform;
+        tempHandle = Create.create.GenerateButton("Reset", resetButton, fmp, fvPos - vDelta, "Reset");
+        tempHandle.transform.parent = buttonContainer.transform;
+        tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
 
-        GenerateButton("Home", homeButton, fmp + hDelta, fvPos - vDelta, "Home").transform.parent = buttonContainer.transform;
-        
+        tempHandle = Create.create.GenerateButton("Home", homeButton, fmp + hDelta, fvPos - vDelta, "Home");
+        tempHandle.transform.parent = buttonContainer.transform;
+        tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
+
     }
 
     /**
      * usefull class to generate button with interaction over the Click Button interface
      */
-    GameObject GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
+    GameObject __GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
         GameObject obj = Instantiate(baseMarble);
         obj.name = name;
         obj.GetComponent<SpriteRenderer>().sprite = sprite;
@@ -137,16 +148,19 @@ public class ManageScene : MonoBehaviour {
             UserMarbles[i].GetComponent<SpriteRenderer>().color = colorPalette.GetZeroColor();
 
             Vector2 pos = new Vector2(fmp + delta * i, verPos);
+
             UserMarbles[i].transform.position = pos;
 
-            UserMarbles[i].GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
+            ClickButton cb = UserMarbles[i].GetComponent<ClickButton>();
 
-            UserMarbles[i].GetComponent<ClickButton>().SetType("NextColor");
+            cb.Setgc(gameObject.GetComponent<GameControl>());
+
+            cb.SetType("NextColor");
         }
 	}
 
     /**
-     * generate a marble set passing a preexistent one... gemmini function of GenerateUserMarbleSet
+     * generate a marble set passing a preexistent one... gemini function of GenerateUserMarbleSet
      */
     GameObject[] GenerateUserMarbleSet(int n, GameObject[] um, GameObject uc) {
 
@@ -160,8 +174,9 @@ public class ManageScene : MonoBehaviour {
 
             newUsMar[i] = Instantiate(um[i], uc.transform);
             newUsMar[i].name = "userMarble" + i;
-            newUsMar[i].GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
-            newUsMar[i].GetComponent<ClickButton>().SetType("NextColor");
+            ClickButton cb = newUsMar[i].GetComponent<ClickButton>();
+            cb.Setgc(gameObject.GetComponent<GameControl>());
+            cb.SetType("NextColor");
 
             Vector2 pos = new Vector2(fmp + delta * i, verPos);
             newUsMar[i].transform.position = pos;
@@ -245,12 +260,12 @@ public class ManageScene : MonoBehaviour {
         GameObject pawn;
 
         for(float i = 0; i < posOk; i++) {
-            pawn = GenerateButton("posOk" + i, position, posOkPos, fvPos + i * vDelta, "");
+            pawn = Create.create.GenerateSprite("posOk" + i, position, posOkPos, fvPos + i * vDelta);
             pawn.transform.parent = pointContainer.transform;
         }
 
         for (float i = 0; i < colOk; i++) {
-            pawn = GenerateButton("colOk" + i, color, -posOkPos, fvPos + i * vDelta, "");
+            pawn = Create.create.GenerateSprite("colOk" + i, color, -posOkPos, fvPos + i * vDelta);
             pawn.transform.parent = pointContainer.transform;
         }
 

@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class Palette : MonoBehaviour {
 
+    public static Palette palette = null;
+
 	Color[] colorPalette = new Color[6];
 
-	/**
+    void Awake() {
+        if (palette == null) {
+            DontDestroyOnLoad(gameObject);
+            palette = this;
+        }
+        else if (palette != this) {
+            DestroyImmediate(gameObject);
+        }
+    }
+
+    /**
 	 * generate a new palette with the giveng lenght
 	 */
-	public void GeneratePalette(int len) {
+    public void GeneratePalette(int len) {
 
 		colorPalette = new Color[len];
 
@@ -33,8 +45,9 @@ public class Palette : MonoBehaviour {
      * get the color with 0 index
      */
 	public Color GetZeroColor(){
-		return colorPalette [0];
-	}
+        //return colorPalette [0];
+        return Color.white;
+    }
 
 	/**
 	 * pick a random color from the pre-generated palette

@@ -62,4 +62,35 @@ public class ClickButton : MonoBehaviour {
 
     }
 
+    void Options() {
+
+        SceneManager.LoadSceneAsync("Options");
+
+    }
+
+    void MarblesNumber() {
+        if(gameObject.name=="More Marbles") {
+            ShortTermMemory.memory.ChangeMarblesNumber(1);
+        }else if(gameObject.name == "Less Marbles") {
+            ShortTermMemory.memory.ChangeMarblesNumber(-1);
+        }
+        GameObject.Find("OptionsContainer").GetComponent<OptionsSceneManager>().SetNumericals();
+        if (Application.isEditor) {
+            Debug.Log(ShortTermMemory.memory.ChangeMarblesNumber(0));
+        }
+    }
+
+    void ColorsNumber() {
+        if (gameObject.name == "More Colors") {
+            ShortTermMemory.memory.ChangeColorsNumber(1);
+        }
+        else if (gameObject.name == "Less Colors") {
+            ShortTermMemory.memory.ChangeColorsNumber(-1);
+        }
+        GameObject.Find("OptionsContainer").GetComponent<OptionsSceneManager>().SetNumericals();
+        if (Application.isEditor) {
+            Debug.Log(ShortTermMemory.memory.ChangeColorsNumber(0));
+        }
+    }
+
 }

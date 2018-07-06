@@ -11,7 +11,7 @@ public class MainMenuManager : MonoBehaviour {
     public GameObject baseMarble;
 
     [Tooltip("The Graphic of the GUI button")]
-    public Sprite playButton, quitButton;
+    public Sprite playButton, quitButton, optionsButton;
 
     // Use this for initialization
     void Start () {
@@ -31,16 +31,18 @@ public class MainMenuManager : MonoBehaviour {
         float hDelta = (bounds.GetRightLimit() * 2f) / (3);
         float fmp = bounds.GetLeftLimit() + hDelta;
 
-        GenerateButton("play", playButton, fmp, fvPos, "Play");
+        Create.create.GenerateButton("Play", playButton, fmp, fvPos, "Play");
 
-        GenerateButton("quit", quitButton, fmp + hDelta, fvPos, "Quit");
+        Create.create.GenerateButton("Quit", quitButton, fmp + hDelta, fvPos, "Quit");
+
+        Create.create.GenerateButton("Options", optionsButton, fmp + (hDelta/2), fvPos, "Options");
 
     }
 
     /**
      * i have to make this static and accessable
      */ 
-    GameObject GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
+    GameObject __GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
         GameObject obj = Instantiate(baseMarble);
         obj.name = name;
         obj.GetComponent<SpriteRenderer>().sprite = sprite;
