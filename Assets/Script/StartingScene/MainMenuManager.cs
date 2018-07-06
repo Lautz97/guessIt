@@ -37,7 +37,10 @@ public class MainMenuManager : MonoBehaviour {
 
     }
 
-    void GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
+    /**
+     * i have to make this static and accessable
+     */ 
+    GameObject GenerateButton(string name, Sprite sprite, float xPos, float yPos, string method) {
         GameObject obj = Instantiate(baseMarble);
         obj.name = name;
         obj.GetComponent<SpriteRenderer>().sprite = sprite;
@@ -45,6 +48,7 @@ public class MainMenuManager : MonoBehaviour {
         obj.transform.position = pos;
         //obj.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
         obj.GetComponent<ClickButton>().SetType(method);
+        return obj;
     }
 
 }

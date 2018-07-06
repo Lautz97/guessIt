@@ -11,7 +11,10 @@ public class ManageScene : MonoBehaviour {
     //cointainers of marbles in the scene
     GameObject cpuContainer;
     GameObject userContainer;
+    GameObject marbleContainer;
     GameObject pointContainer;
+    GameObject buttonContainer;
+    GameObject uiContainer;
 
     //the base marble prefab
     [Tooltip("this is the base prefab")]
@@ -31,6 +34,12 @@ public class ManageScene : MonoBehaviour {
     public Sprite color, position;
 
 	void Start () {
+
+        //set containers
+        marbleContainer = new GameObject("Marbles");
+        buttonContainer = new GameObject("Buttons");
+        uiContainer = new GameObject("UserInterface");
+
         //utility handle setting
         colorPalette = gameObject.GetComponent<Palette>();
         bounds = GameObject.Find("Main Camera").GetComponent<ScreenBounds>();
@@ -47,9 +56,13 @@ public class ManageScene : MonoBehaviour {
 	/**
 	 * initialize the marble set
 	 */
-	void GenerateSet () {
+	void GenerateSet () { 
+
         cpuContainer = new GameObject("Cpu");
+        cpuContainer.transform.parent = marbleContainer.transform;
+
         userContainer = new GameObject("User");
+        userContainer.transform.parent = marbleContainer.transform;
 
         GenerateMarbleSet(numberOfMarbles);
 
@@ -80,14 +93,14 @@ public class ManageScene : MonoBehaviour {
         float hDelta = (bounds.GetRightLimit() * 2f) / (4);
         float fmp = bounds.GetLeftLimit() + hDelta;
 
-        GenerateButton("check", checkButton, fmp + hDelta, fvPos, "Check");
+        GenerateButton("Check", checkButton, fmp + hDelta, fvPos, "Check").transform.parent = buttonContainer.transform;
 
         hDelta = (bounds.GetRightLimit() * 2f) / (5);
         fmp = bounds.GetLeftLimit() + 2 * hDelta;
 
-        GenerateButton("reset", resetButton, fmp, fvPos - vDelta, "Reset");
+        GenerateButton("Reset", resetButton, fmp, fvPos - vDelta, "Reset").transform.parent = buttonContainer.transform;
 
-        GenerateButton("home", homeButton, fmp + hDelta, fvPos - vDelta, "Home");
+        GenerateButton("Home", homeButton, fmp + hDelta, fvPos - vDelta, "Home").transform.parent = buttonContainer.transform;
         
     }
 
@@ -177,6 +190,8 @@ public class ManageScene : MonoBehaviour {
 
             CpuMarbles[i] = newMarble;
 
+            CpuMarbles[i].GetComponent<DestroyOutScreen>().enabled = false;
+
             Vector2 pos = new Vector2(i - n / 2, 10000);
             CpuMarbles[i].transform.position = pos;
 		}
@@ -206,7 +221,18 @@ public class ManageScene : MonoBehaviour {
     void Points() {
 
         pointContainer = new GameObject();
+
+        pointContainer.transform.parent = uiContainer.transform;
+
         pointContainer.name = ("point container");
+
+        GameObject posOkContainer = new GameObject();
+        posOkContainer.name = ("Correct position container");
+        posOkContainer.transform.parent = pointContainer.transform;
+
+        GameObject colOkContainer = new GameObject();
+        colOkContainer.name = ("Correct color container");
+        colOkContainer.transform.parent = pointContainer.transform;
 
         float fvPos = bounds.GetBottomLimit() + ((bounds.GetTopLimit() * 2) / 3);
         float vDelta = -0.5f;

@@ -9,7 +9,9 @@ public class GameBrain : MonoBehaviour {
 
 	Palette colorPalette;
 
-
+    /**
+     * associate to this script the current marble set and palette
+     */
 	public void Associate(GameObject[] cpuMar, GameObject[] userMar,Palette pal){
 		CpuMarbles = cpuMar;
 		UserMarbles = userMar;
@@ -17,7 +19,11 @@ public class GameBrain : MonoBehaviour {
 	}
 
 
-
+    /**
+     * returns the state of the game
+     * true == you won
+     * false == keep trying
+     */
     public bool Check() {
 
         Vector2 result = CheckFunction(CpuMarbles, UserMarbles);
@@ -29,10 +35,16 @@ public class GameBrain : MonoBehaviour {
         return false;
     }
 
+    /**
+     * returns the Vector2 composed like this (posOk,colOk)
+     */
     public Vector2 CheckFunction() {
         return CheckFunction(CpuMarbles, UserMarbles);
     }
 
+    /**
+     * return a Vector2 composed like this (posOk,colOk)
+     */
 	Vector2 CheckFunction (GameObject[] cpuMar, GameObject[] userMar){
 		
 		int len = userMar.Length;
@@ -71,21 +83,6 @@ public class GameBrain : MonoBehaviour {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	int selected = 0;
 
 	/**
@@ -121,7 +118,10 @@ public class GameBrain : MonoBehaviour {
 		}
 	}
 
-	public void SetSelected(int i){
+    /**
+	 * change the currently selected marble by indexing
+	 */
+    public void SetSelected(int i){
 		selected = i;
 	}
 }

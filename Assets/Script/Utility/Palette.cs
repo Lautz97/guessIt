@@ -29,6 +29,9 @@ public class Palette : MonoBehaviour {
 		}
 	}
 
+    /**
+     * get the color with 0 index
+     */
 	public Color GetZeroColor(){
 		return colorPalette [0];
 	}
