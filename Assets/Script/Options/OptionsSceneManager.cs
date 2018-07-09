@@ -39,7 +39,7 @@ public class OptionsSceneManager : MonoBehaviour {
 
         Create.create.GenerateButton("Play", playButton, fmp, fvPos, "Play");
 
-        Create.create.GenerateButton("Menu", menuButton, fmp + hDelta, fvPos, "Menu");
+        Create.create.GenerateButton("Menu", menuButton, fmp + hDelta, fvPos, "Home");
 
         fvPos += vDelta;
 
