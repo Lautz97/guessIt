@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ClickButton : MonoBehaviour {
 
@@ -40,31 +39,31 @@ public class ClickButton : MonoBehaviour {
 
     void Reset() {
 
-        SceneManager.LoadSceneAsync("Game");
+        UserActionsSceneManager.manager.LoadScene("Game");
 
     }
 
     void Play() {
 
-        SceneManager.LoadSceneAsync("Game");
+        UserActionsSceneManager.manager.LoadScene("Game");
 
     }
 
     void Quit() {
 
-        Application.Quit();
+        UserActionsSceneManager.manager.Quit();
 
     }
 
     void Home() {
 
-        SceneManager.LoadSceneAsync("Menu");
+        UserActionsSceneManager.manager.LoadScene("Menu");
 
     }
 
     void Options() {
 
-        SceneManager.LoadSceneAsync("Options");
+        UserActionsSceneManager.manager.LoadScene("Options");
 
     }
 

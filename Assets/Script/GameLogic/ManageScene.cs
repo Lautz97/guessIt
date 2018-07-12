@@ -73,7 +73,9 @@ public class ManageScene : MonoBehaviour {
 
         GenerateUIObjects();
 
-        Points();
+        if (Points() > numberOfMarbles / 3) {
+            UserActionsSceneManager.manager.LoadScene("Game");
+        }
     }
 
     /**
@@ -233,7 +235,7 @@ public class ManageScene : MonoBehaviour {
     /**
      * the only way i could figure out to tell player if he's right
      */
-    void Points() {
+    float Points() {
 
         pointContainer = new GameObject();
 
@@ -268,6 +270,8 @@ public class ManageScene : MonoBehaviour {
             pawn = Create.create.GenerateSprite("colOk" + i, color, -posOkPos, fvPos + i * vDelta);
             pawn.transform.parent = pointContainer.transform;
         }
+
+        return posOk;
 
     }
 
