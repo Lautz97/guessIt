@@ -18,13 +18,18 @@ public class UserActionsSceneManager : MonoBehaviour {
     }
 
     public void Quit() {
-
+        LongTermMemory.memory.Save();
         Application.Quit();
 
     }
 
     public void LoadScene(string obj) {
+        
         SceneManager.LoadSceneAsync(obj);
+    }
+
+    private void OnApplicationQuit() {
+        LongTermMemory.memory.Save();
     }
 
 

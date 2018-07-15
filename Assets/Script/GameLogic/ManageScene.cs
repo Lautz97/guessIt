@@ -239,12 +239,12 @@ public class ManageScene : MonoBehaviour {
      */
 	public void SlideUp(){
 
-        if (ShortTermMemory.memory.GetSpacing()) {
+        if (true /*ShortTermMemory.memory.GetSpacing()*/) {
             userContainer.transform.position = new Vector2(0, userContainer.transform.position.y + UserMarbles[0].transform.lossyScale.y);
         }
-        else {
+        /*else {
             userContainer.transform.position = new Vector2(0, userContainer.transform.position.y + UserMarbles[0].transform.lossyScale.y/2);
-        }
+        }*/
         //userContainer.transform.localScale = new Vector2(userContainer.transform.lossyScale.x - 0.1f, userContainer.transform.lossyScale.y - 0.1f);
 
         UserMarbles = GenerateUserMarbleSet(numberOfMarbles, UserMarbles, userContainer);

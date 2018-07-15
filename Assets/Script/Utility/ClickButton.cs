@@ -38,7 +38,6 @@ public class ClickButton : MonoBehaviour {
     }
 
     void Reset() {
-
         UserActionsSceneManager.manager.LoadScene("Game");
 
     }

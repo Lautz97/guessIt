@@ -18,6 +18,7 @@ public class OptionsSceneManager : MonoBehaviour {
         
     // Use this for initialization
     void Start() {
+
         bounds = GameObject.Find("Main Camera").GetComponent<ScreenBounds>();
 
         GenerateUIObjects();
@@ -61,6 +62,7 @@ public class OptionsSceneManager : MonoBehaviour {
 
         Destroy(colNum);
         colNum = Create.create.GenerateSprite ("Color Number", SpritesContainer.sprites.numbers[ShortTermMemory.memory.ChangeColorsNumber(0)], fmp + hDelta, fvPos + vDelta);
+
     }
 
 

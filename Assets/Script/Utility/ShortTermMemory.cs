@@ -12,8 +12,8 @@ public class ShortTermMemory : MonoBehaviour {
     const int __MAXCOLORS = 8,
               __MINCOLORS = 3;
 
-    int numberOfMarbles = 6;
-    int numberOfColors = 4;
+    int numberOfMarbles;
+    int numberOfColors;
 
     bool littleSpace = false;
 
@@ -76,11 +76,28 @@ public class ShortTermMemory : MonoBehaviour {
         return numberOfColors;
     }
 
+    public void SetNumberOfMarbles(int i) {
+        if (i >= __MINMARBLES && i <= __MAXMARBLES) {
+            numberOfMarbles = i;
+        }
+    }
+
+    public void SetNumberOfColors(int i) {
+        if (i >= __MINCOLORS && i <= __MAXCOLORS) {
+            numberOfColors = i;
+        }
+    }
+
+
     /**
      * is needed some space between tiles?
      */
     public bool GetSpacing () {
         return littleSpace;
+    }
+
+    public void SetSpacing(bool b) {
+        littleSpace = b;
     }
 
     /**
