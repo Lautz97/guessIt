@@ -10,9 +10,7 @@ public class MainMenuManager : MonoBehaviour {
     [Tooltip("this is the base prefab")]
     public GameObject baseMarble;
 
-    [Tooltip("The Graphic of the GUI button")]
-    public Sprite playButton, quitButton, optionsButton;
-
+    
     // Use this for initialization
     void Start () {
         bounds = GameObject.Find("Main Camera").GetComponent<ScreenBounds>();
@@ -31,11 +29,11 @@ public class MainMenuManager : MonoBehaviour {
         float hDelta = (bounds.GetRightLimit() * 2f) / (3);
         float fmp = bounds.GetLeftLimit() + hDelta;
 
-        Create.create.GenerateButton("Play", playButton, fmp, fvPos, "Play");
+        Create.create.GenerateButton("Play", SpritesContainer.sprites.playButton, fmp, fvPos, "Play");
 
-        Create.create.GenerateButton("Quit", quitButton, fmp + hDelta, fvPos, "Quit");
+        Create.create.GenerateButton("Quit", SpritesContainer.sprites.quitButton, fmp + hDelta, fvPos, "Quit");
 
-        Create.create.GenerateButton("Options", optionsButton, fmp + (hDelta/2), fvPos, "Options");
+        Create.create.GenerateButton("Options", SpritesContainer.sprites.optionsButton, fmp + (hDelta/2), fvPos, "Options");
 
     }
 

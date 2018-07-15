@@ -92,4 +92,13 @@ public class ClickButton : MonoBehaviour {
         }
     }
 
+    void Spacing() {
+        if (ShortTermMemory.memory.FlipSpacing()) {
+            gameObject.GetComponent<SpriteRenderer>().sprite = SpritesContainer.sprites.On;
+        }
+        else {
+            gameObject.GetComponent<SpriteRenderer>().sprite = SpritesContainer.sprites.Off;
+        }
+    }
+
 }

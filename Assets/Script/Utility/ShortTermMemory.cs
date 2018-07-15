@@ -15,6 +15,8 @@ public class ShortTermMemory : MonoBehaviour {
     int numberOfMarbles = 6;
     int numberOfColors = 4;
 
+    bool littleSpace = false;
+
     // Use this for initialization
     void Awake() {
         if (memory == null) {
@@ -74,6 +76,19 @@ public class ShortTermMemory : MonoBehaviour {
         return numberOfColors;
     }
 
+    /**
+     * is needed some space between tiles?
+     */
+    public bool GetSpacing () {
+        return littleSpace;
+    }
 
+    /**
+     * flip the spacing from tile to tile condition and return the new value if needed;
+     */
+    public bool FlipSpacing () {
+        littleSpace = !littleSpace;
+        return littleSpace;
+    }
     
 }

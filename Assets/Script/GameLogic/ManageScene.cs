@@ -26,12 +26,14 @@ public class ManageScene : MonoBehaviour {
 
     //debug units
     [Tooltip("DEBUG this is the number of marbles being spawned")]
-    public int numberOfMarbles = 6;
+    int numberOfMarbles = 6;
+
     [Tooltip("DEBUG this is the number of colors being created in the palette")]
-    public int paletteLenght = 4;
-    [Tooltip("The Graphic of the GUI button")]
-    public Sprite checkButton, resetButton, homeButton;
-    public Sprite color, position;
+    int paletteLenght = 4;
+
+    //offset from tile to tile
+    public float tileOffset = 0.2f;
+
 
 	void Start () {
 
@@ -100,18 +102,18 @@ public class ManageScene : MonoBehaviour {
 
         GameObject tempHandle;
 
-        tempHandle = Create.create.GenerateButton("Check", checkButton, fmp + hDelta, fvPos, "Check");
+        tempHandle = Create.create.GenerateButton("Check", SpritesContainer.sprites.checkButton, fmp + hDelta, fvPos, "Check");
         tempHandle.transform.parent = buttonContainer.transform;
         tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
 
         hDelta = (bounds.GetRightLimit() * 2f) / (5);
         fmp = bounds.GetLeftLimit() + 2 * hDelta;
 
-        tempHandle = Create.create.GenerateButton("Reset", resetButton, fmp, fvPos - vDelta, "Reset");
+        tempHandle = Create.create.GenerateButton("Reset", SpritesContainer.sprites.resetButton, fmp, fvPos - vDelta, "Reset");
         tempHandle.transform.parent = buttonContainer.transform;
         tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
 
-        tempHandle = Create.create.GenerateButton("Home", homeButton, fmp + hDelta, fvPos - vDelta, "Home");
+        tempHandle = Create.create.GenerateButton("Home", SpritesContainer.sprites.menuButton, fmp + hDelta, fvPos - vDelta, "Home");
         tempHandle.transform.parent = buttonContainer.transform;
         tempHandle.GetComponent<ClickButton>().Setgc(gameObject.GetComponent<GameControl>());
 
@@ -143,6 +145,12 @@ public class ManageScene : MonoBehaviour {
         float fmp = bounds.GetLeftLimit() + delta;
         float verPos = bounds.GetBottomLimit() + ((bounds.GetTopLimit() * 2) / 2);
 
+        float marbleSize = delta;
+        if (ShortTermMemory.memory.GetSpacing()) {
+            marbleSize -= tileOffset;
+        }
+        Vector3 size3D = new Vector3(marbleSize, marbleSize, 1);
+
 		for (int i = 0; i < n; i++) {
 
             UserMarbles[i] = Instantiate(baseMarble, userContainer.transform);
@@ -152,6 +160,8 @@ public class ManageScene : MonoBehaviour {
             Vector2 pos = new Vector2(fmp + delta * i, verPos);
 
             UserMarbles[i].transform.position = pos;
+
+            UserMarbles[i].transform.localScale = size3D;
 
             ClickButton cb = UserMarbles[i].GetComponent<ClickButton>();
 
@@ -172,10 +182,19 @@ public class ManageScene : MonoBehaviour {
         float fmp = bounds.GetLeftLimit() + delta;
         float verPos = bounds.GetBottomLimit() + ((bounds.GetTopLimit() * 2) / 2);
 
+        float marbleSize = delta;
+        if (ShortTermMemory.memory.GetSpacing()) {
+            marbleSize -= tileOffset;
+        }
+        Vector3 size3D = new Vector3(marbleSize, marbleSize, 1);
+
         for (int i = 0; i < n; i++) {
 
             newUsMar[i] = Instantiate(um[i], uc.transform);
             newUsMar[i].name = "userMarble" + i;
+
+            UserMarbles[i].transform.localScale = size3D;
+
             ClickButton cb = newUsMar[i].GetComponent<ClickButton>();
             cb.Setgc(gameObject.GetComponent<GameControl>());
             cb.SetType("NextColor");
@@ -220,7 +239,12 @@ public class ManageScene : MonoBehaviour {
      */
 	public void SlideUp(){
 
-        userContainer.transform.position = new Vector2(0, userContainer.transform.position.y + baseMarble.transform.lossyScale.y);
+        if (ShortTermMemory.memory.GetSpacing()) {
+            userContainer.transform.position = new Vector2(0, userContainer.transform.position.y + UserMarbles[0].transform.lossyScale.y);
+        }
+        else {
+            userContainer.transform.position = new Vector2(0, userContainer.transform.position.y + UserMarbles[0].transform.lossyScale.y/2);
+        }
         //userContainer.transform.localScale = new Vector2(userContainer.transform.lossyScale.x - 0.1f, userContainer.transform.lossyScale.y - 0.1f);
 
         UserMarbles = GenerateUserMarbleSet(numberOfMarbles, UserMarbles, userContainer);
@@ -262,12 +286,12 @@ public class ManageScene : MonoBehaviour {
         GameObject pawn;
 
         for(float i = 0; i < posOk; i++) {
-            pawn = Create.create.GenerateSprite("posOk" + i, position, posOkPos, fvPos + i * vDelta);
+            pawn = Create.create.GenerateSprite("posOk" + i, SpritesContainer.sprites.rightPosition, posOkPos, fvPos + i * vDelta);
             pawn.transform.parent = pointContainer.transform;
         }
 
         for (float i = 0; i < colOk; i++) {
-            pawn = Create.create.GenerateSprite("colOk" + i, color, -posOkPos, fvPos + i * vDelta);
+            pawn = Create.create.GenerateSprite("colOk" + i, SpritesContainer.sprites.wrongPosition, -posOkPos, fvPos + i * vDelta);
             pawn.transform.parent = pointContainer.transform;
         }
 
