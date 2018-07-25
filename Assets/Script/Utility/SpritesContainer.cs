@@ -17,6 +17,8 @@ public class SpritesContainer : MonoBehaviour {
         }
     }
 
+    public GameObject baseObj;
+
     public Sprite playButton, quitButton, optionsButton, plusButton, minusButton, menuButton;
 
     public Sprite[] numbers = new Sprite[10];
